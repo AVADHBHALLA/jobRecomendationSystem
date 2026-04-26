@@ -46,6 +46,12 @@ public class JobService {
         jobRepository.save(job);
     }
 
+    public void delete(UUID jobId){
+        Job job = jobRepository.findById(jobId)
+                .orElseThrow(() -> new RuntimeException("Job not found"));
+        jobRepository.deleteById(jobId);
+    }
+
     private String formDescription(JobDescription description) {
         StringBuilder sb = new StringBuilder();
 
