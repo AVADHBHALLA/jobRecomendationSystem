@@ -57,19 +57,20 @@ public class JobController {
         }
     }
 
-   /* @PutMapping("/update/{jobId}")
+   @PutMapping("/update/{jobId}")
     public ResponseEntity<Void> update(@PathVariable UUID jobId , @RequestBody JobDto dto){
-        if(jobId==null && dto==null){
+        if(jobId==null || dto==null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         try{
-
+            jobService.update(jobId,dto);
+            return new ResponseEntity<>(HttpStatus.OK);
         }catch (Exception e){
-
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @DeleteMapping("/delete/{jobId}")
+    /*@DeleteMapping("/delete/{jobId}")
     public ResponseEntity<Void> delete(@PathVariable UUID jobId){
 
     }*/

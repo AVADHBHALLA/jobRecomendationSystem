@@ -43,6 +43,7 @@ public class JobService {
         job.setCompanyName(dto.getCompanyName());
         job.setMinSalary(dto.getMinSalary());
         job.setMaxSalary(dto.getMaxSalary());
+        jobRepository.save(job);
     }
 
     private String formDescription(JobDescription description) {
