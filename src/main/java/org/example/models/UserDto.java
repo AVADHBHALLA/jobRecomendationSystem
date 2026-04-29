@@ -3,6 +3,7 @@ package org.example.models;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
+import org.example.entity.EducationLevel;
 
 import java.time.LocalDate;
 
@@ -16,13 +17,10 @@ public class UserDto {
     @NonNull
     private String name;
 
-    private String education;
+    @NonNull
+    private EducationLevel education;
 
-    private String phone;
+    private PreferenceDetailsDto jobPreferenceFilter;
 
-    private String resume;
-
-    private LocalDate dob;
-
-    private String jobPreferenceFilter;
+    private boolean emailServiceEnabled;
 }

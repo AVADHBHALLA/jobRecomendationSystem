@@ -1,7 +1,11 @@
 package org.example.entity;
 
+import io.hypersistence.utils.hibernate.type.json.JsonType;
 import jakarta.persistence.*;
 import lombok.*;
+import org.example.models.PreferenceDetailsDto;
+import org.example.models.UserStatus;
+import org.hibernate.annotations.Type;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -22,19 +26,21 @@ public class User {
     @Column(name = "name",nullable = false)
     private String name;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "education")
-    private String education; // 10th, 12th, UG
+    private EducationLevel education;
 
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "email", nullable = false, unique = true , updatable = false)
     private String email;
 
-    @Column(name = "phone")
-    private String phone;
+    @Type(JsonType.class)
+    @Column(name = "job_preference_filter", columnDefinition = "jsonb")
+    private PreferenceDetailsDto jobPreferenceFilter;
 
-    private String resume;
+    @Column(name = "email_service_enabled")
+    private boolean emailServiceEnabled;
 
-    @Column(name = "dob")
-    private LocalDate dob;
-
-    private String jobPreferenceFilter;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private UserStatus status;
 }
