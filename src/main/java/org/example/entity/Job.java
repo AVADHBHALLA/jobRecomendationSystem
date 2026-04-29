@@ -1,7 +1,10 @@
 package org.example.entity;
 
+import io.hypersistence.utils.hibernate.type.json.JsonType;
 import jakarta.persistence.*;
 import lombok.*;
+import org.example.models.JobDescription;
+import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.UUID;
@@ -22,8 +25,9 @@ public class Job {
     @Column(name = "title" , nullable = false)
     private String title;
 
-    @Column(name = "description" , nullable = false,columnDefinition = "TEXT")
-    private String description;
+    @Type(JsonType.class)
+    @Column(name = "description" , nullable = false,columnDefinition = "jsonb")
+    private JobDescription description;
 
     @Column(name = "company_name" , nullable = false)
     private String companyName;
