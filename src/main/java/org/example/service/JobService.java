@@ -18,8 +18,8 @@ public class JobService {
     private final JobRepository jobRepository;
 
     public Job create(JobDto dto){
-        String description = formDescription(dto.getJobDescription());
-        Job job = createNewJob(dto,description);
+       // String description = formDescription(dto.getJobDescription());
+        Job job = createNewJob(dto);
         return jobRepository.save(job);
     }
 
@@ -35,8 +35,8 @@ public class JobService {
     public void update(UUID jobId , JobDto dto){
         Job job = jobRepository.findById(jobId)
                 .orElseThrow(() -> new RuntimeException("Job not found"));
-        String description = formDescription(dto.getJobDescription());
-        job.setDescription(description);
+        //String description = formDescription(dto.getJobDescription());
+        job.setDescription(dto.getJobDescription());
         job.setTitle(dto.getTitle());
         job.setYearsOfExperience(dto.getYearOfExperience());
         job.setLocation(dto.getLocation());
@@ -88,10 +88,10 @@ public class JobService {
         return sb.toString();
     }
 
-    private Job createNewJob(JobDto dto,String description){
+    private Job createNewJob(JobDto dto){
         return Job.builder()
                 .title(dto.getTitle())
-                .description(description)
+                .description(dto.getJobDescription())
                 .companyName(dto.getCompanyName())
                 .yearsOfExperience(dto.getYearOfExperience())
                 .minSalary(dto.getMinSalary())
