@@ -3,6 +3,7 @@ package org.example.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public enum WorkSetup {
+
     @JsonProperty("remote")
     REMOTE,
 
@@ -10,5 +11,5 @@ public enum WorkSetup {
     HYBRID,
 
     @JsonProperty("onsite")
-    ONSITE,
+    ONSITE
 }

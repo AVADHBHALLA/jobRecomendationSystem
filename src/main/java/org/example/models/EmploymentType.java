@@ -17,5 +17,5 @@ public enum EmploymentType {
     CONTRACT,
 
     @JsonProperty("freelance")
-    FREELANCE,
+    FREELANCE
 }
