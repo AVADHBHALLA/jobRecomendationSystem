@@ -1,8 +1,10 @@
 package org.example.controller;
 
 import lombok.AllArgsConstructor;
+import org.example.entity.Job;
 import org.example.entity.User;
 import org.example.models.UserDto;
+import org.example.service.JobMatchService;
 import org.example.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,7 @@ import java.util.UUID;
 public class UserController {
 
     private final UserService userService;
+    private final JobMatchService matchService;
 
     @PostMapping("/create")
     public ResponseEntity<User> create(@RequestBody UserDto dto){
@@ -77,6 +80,18 @@ public class UserController {
         try{
             userService.deactivate(userId);
             return new ResponseEntity<>(HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @GetMapping("/matchJob/{userId}")
+    public ResponseEntity<List<Job>> matchJob(@PathVariable UUID userId){
+        if(userId==null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        try{
+            List<Job> jobs = matchService.getMatchingJobs(userId);
+            return new ResponseEntity<>(jobs,HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
