@@ -23,7 +23,9 @@ public class JobMatchService {
     private final UserRepository userRepository;
 
     public List<Job> getMatchingJobs(UUID userId) {
-        User user = userRepository.getReferenceById(userId);
+        User user = userRepository.findById(userId)
+                .orElseThrow(() ->
+                        new RuntimeException("User not found"));
         PreferenceDetailsDto prefs = user.getJobPreferenceFilter();
 
         List<Job> allJobs = jobRepository.findAll();
